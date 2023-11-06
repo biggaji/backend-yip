@@ -1,0 +1,22 @@
+{
+  "name": "backend-yip",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A RESTful API implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev:start": "nodemon index.js"
+  },
+  "author": "Tobi Ajibade",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^6.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1"
+  }
+}
