@@ -79,8 +79,11 @@ app.get('/users/:id', async (request, response, next) => {
   try {
     const userId = new ObjectId(request.params.id);
     // "_id" : ObjectId("5d71522dc452f78e335d2d8b")
-    const user = await userCollection.find({"_id": userId}).toArray();
-    response.status(200).json(user);
+    const user = await userCollection.find({"_id": userId});
+    response.status(200).json({
+      message: "User found",
+      data: user
+    });
   } catch(error) {
     next(error)
   }
@@ -107,7 +110,7 @@ app.patch('/users/:id', async (request, response, next) => {
       {$set: newInformation} 
     )
 
-    response.status(200).json(patchedUser)
+    response.status(200).json({message: "User edited", data: patchedUser})
 
   } catch(error) {
     next(error)
@@ -120,7 +123,7 @@ app.delete('/users/:id', async( request, response, next) => {
   try {
     const userId = new ObjectId(request.params.id);
     const deleteResult = await userCollection.deleteOne({"_id": userId})
-    response.staus(204).json({message: "User deleted"})
+    response.status(204).json({message: "User deleted"})
   } catch(error) {
     next(error)
   }
@@ -130,7 +133,7 @@ app.delete('/users/:id', async( request, response, next) => {
 app.delete('/users', async( request, response, next) => {
   try {
     const deleteResult = await userCollection.deleteMany();
-    response.staus(200).json({message: "All users deleted"})
+    response.status(200).json({message: "All users deleted"})
   } catch(error) {
     next(error)
   }
