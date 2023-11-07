@@ -79,7 +79,7 @@ app.get('/users/:id', async (request, response, next) => {
   try {
     const userId = new ObjectId(request.params.id);
     // "_id" : ObjectId("5d71522dc452f78e335d2d8b")
-    const user = await userCollection.find({"_id": userId});
+    const user = await userCollection.find({"_id": userId}).toArray();
     response.status(200).json({
       message: "User found",
       data: user
