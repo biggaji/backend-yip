@@ -108,7 +108,7 @@ app.patch('/users/:id', async(req,res, next) => {
         });
       }
     } else {
-      res.status(404).json({ error: 'User not found' });
+      throw new Error('User not found');
     }
   } catch (error) {
     next(error)
@@ -135,7 +135,7 @@ app.delete('/users/:id', async(req,res,next) => {
         });
       }
     } else {
-      res.status(404).json({ error: 'User not found' });
+      throw new Error('User not found');
     }
 
   } catch (error) {
