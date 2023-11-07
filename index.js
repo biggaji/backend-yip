@@ -77,9 +77,9 @@ app.get('/users', async (request, response, next) => {
 // Status code 200
 app.get('/users/:id', async (request, response, next) => {
   try {
-    const userId = request.params.id;
+    const userId = new ObjectId(request.params.id);
     // "_id" : ObjectId("5d71522dc452f78e335d2d8b")
-    const user = await userCollection.find({"_id": ObjectId(userId)}).toArray();
+    const user = await userCollection.find({"_id": userId}).toArray();
     response.status(200).json(user);
   } catch(error) {
     next(error)
@@ -92,7 +92,7 @@ app.get('/users/:id', async (request, response, next) => {
 // Throw an error if request was unsuccessful
 app.patch('/users/:id', async (request, response, next) => {
   try {
-    const userId = request.params.id;
+    const userId = new ObjectId(request.params.id);
     let newInformation = {};
     const { firstname, lastname, email, dob, bio } = request.body;
 
@@ -103,7 +103,7 @@ app.patch('/users/:id', async (request, response, next) => {
     if (bio) newInformation.bio = bio;
 
     const patchedUser = await userCollection.updateOne(
-      {"_id": ObjectId(userId)}, // Filter parameter
+      {"_id": userId}, // Filter parameter
       {$set: newInformation} 
     )
 
@@ -118,8 +118,8 @@ app.patch('/users/:id', async (request, response, next) => {
 // Delete a user by it id if found, else throw an error
 app.delete('/users/:id', async( request, response, next) => {
   try {
-    const userId = request.params.id;
-    const deleteResult = await userCollection.deleteOne({"_id": ObjectId(userId)})
+    const userId = new ObjectId(request.params.id);
+    const deleteResult = await userCollection.deleteOne({"_id": userId})
     response.staus(204).json({message: "User deleted"})
   } catch(error) {
     next(error)
@@ -129,7 +129,6 @@ app.delete('/users/:id', async( request, response, next) => {
 // Delete all users, else throw an error
 app.delete('/users', async( request, response, next) => {
   try {
-    const userId = request.params.id;
     const deleteResult = await userCollection.deleteMany();
     response.staus(200).json({message: "All users deleted"})
   } catch(error) {
