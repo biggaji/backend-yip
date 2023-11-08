@@ -2,9 +2,36 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import { userCollection } from './configs/db.js';
+import rateLimit from 'express-rate-limit';
+import MongoStore from 'rate-limit-mongo';
 
 // Express
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: 60 * 2 * 1000, // 2 minutes window
+  max: 20,
+  handler: (req, res, next, options) =>
+    res.status(options.statusCode).json({ message: options.message }),
+});
+
+// To use with mongo store
+// const limiter = rateLimit({
+//   store: new MongoStore({
+//     uri: `${process.env.MONGO_URI}`,
+//     user: `${process.env.MONGO_USER}`,
+//     password: `${process.env.MONGO_PASS}`,
+//     // should match windowMs
+//     expireTimeMs: 2 * 60 * 1000, // 2 minutes
+//     errorHandler: console.error.bind(null, 'rate-limit-mongo'),
+//   }),
+//   windowMs: 60 * 2 * 1000, // 2 minutes window
+//   max: 20,
+//   handler: (req, res, next, options) =>
+//     res.status(options.statusCode).json({ message: options.message }),
+// });
+
+app.use(limiter);
 
 // Middlewares that allows correct parsing of argurments from the request object - request.query, request.params;
 app.use(express.urlencoded({ extended: false }));
