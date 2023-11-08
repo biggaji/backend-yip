@@ -5,11 +5,13 @@ orbs:
 
 jobs:
   unit_tests:
-    executor: node/default
+    docker:
+      - image: cimg/base:stable
     steps:
       - checkout
-      - node/install-packages:
-          - pkg-manager: npm
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
       - run:
           command: npm run test
           name: Run tests
