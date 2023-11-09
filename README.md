@@ -1,5 +1,7 @@
 # backend-yip
 
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/biggaji/backend-yip/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/biggaji/backend-yip/tree/main)
+
 YIP backend workshop demo: A RESTful API implementation written in javascript.
 Every part of this project is a sample code which shows how to do the following:
 
