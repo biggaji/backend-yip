@@ -14,11 +14,10 @@ describe('Sum function', () => {
     done();
   });
 
-  // it('The sum of these operation to throw a TypeError', (done) => {
-  //   const result = sum([1, 'r', 5, 8]);
-  //   expect(sum([1, 'r', 5, 8])).to.throw(
-  //     `Param must contain only values of type 'number'`,
-  //   );
-  //   done();
-  // });
+  it('The sum of these operation should throw a TypeError', () => {
+    expect(() => sum([1, 'r', 5, 8])).to.throw(
+      TypeError,
+      `Param must contain only values of type 'number'`,
+    );
+  });
 });

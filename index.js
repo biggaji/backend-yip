@@ -104,7 +104,7 @@ app.get('/users', async (request, response, next) => {
 app.get('/users/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await userCollection.findOne({_id: new ObjectId(id)});
+    const user = await userCollection.findOne({ _id: new ObjectId(id) });
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -115,78 +115,82 @@ app.get('/users/:id', async (req, res, next) => {
 // FIelds to be updated are within the approved limit. Check FIG 1.0 for approved fields
 // Updates a user by it id and returns a message telling us if is successful or not
 // Throw an error if request was unsuccessful
-app.patch('/users/:id', async(req,res, next) => {
+app.patch('/users/:id', async (req, res, next) => {
   try {
-    const {id} = req.params;
-    const user = await userCollection.findOne({_id: new ObjectId(id)});
+    const { id } = req.params;
+    const user = await userCollection.findOne({ _id: new ObjectId(id) });
 
     if (user) {
-      const updatedUser = await userCollection.updateOne({ _id: new ObjectId(id) }, { $set: req.body});
+      const updatedUser = await userCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: req.body },
+      );
 
       if (updatedUser.modifiedCount > 0) {
         res.status(200).json({
           data: updatedUser,
-          message: 'User updated successfully'
+          message: 'User updated successfully',
         });
       } else {
         res.status(200).json({
           data: updatedUser,
-          message: 'No modifications made to the user data'
+          message: 'No modifications made to the user data',
         });
       }
     } else {
       throw new Error('User not found');
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // Status 204
 // Delete a user by it id if found, else throw an error
-app.delete('/users/:id', async(req,res,next) => {
+app.delete('/users/:id', async (req, res, next) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const user = await userCollection.findOne({ _id: new ObjectId(id) });
     if (user) {
-      const deletedUser = await userCollection.deleteOne({ _id: new ObjectId(id) });
+      const deletedUser = await userCollection.deleteOne({
+        _id: new ObjectId(id),
+      });
       if (deletedUser.deletedCount > 0) {
         res.status(204).json({
           data: deletedUser,
-          message: 'User deleted successfully'
+          message: 'User deleted successfully',
         });
       } else {
         res.status(204).json({
           data: deletedUser,
-          message: 'No user was deleted'
+          message: 'No user was deleted',
         });
       }
     } else {
       throw new Error('User not found');
     }
-
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
 // Delete all users, else throw an error
-app.delete('/users', async(req,res, next) => {
+app.delete('/users', async (req, res, next) => {
   try {
     const deleteResult = await userCollection.deleteMany({});
     if (deleteResult.deletedCount > 0) {
       res.status(204).json({
         data: deleteResult,
-        message: 'All users deleted successfully'
+        message: 'All users deleted successfully',
       });
     } else {
       res.status(204).json({
         data: deleteResult,
-        message: 'No users were deleted'
+        message: 'No users were deleted',
       });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
@@ -200,3 +204,5 @@ app.use((error, request, response, next) => {
 app.listen(3000, () => {
   console.log(`API server is running on port 3000`);
 });
+
+export { app };
