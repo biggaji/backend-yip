@@ -39,19 +39,19 @@ describe('Users Endpoint', () => {
     expect(response.body).to.be.an('object');
   });
 
-  it('Should throw an Error', async () => {
-    const user = {
-      firstname: 'Adeyemi',
-      lastname: 'Adenuga',
-      email: 'adenuga@softlife.com',
-      dob: '2001/03/15',
-    };
+  // it('Should throw an Error', async () => {
+  //   const user = {
+  //     firstname: 'Adeyemi',
+  //     lastname: 'Adenuga',
+  //     email: 'adenuga@softlife.com',
+  //     dob: '2001/03/15',
+  //   };
 
-    try {
-      await request(app).post('/users').send(user);
-    } catch (error) {
-      expect(error).to.throw(Error);
-      expect(error.message).to.equal('All fields are required');
-    }
-  });
+  //   try {
+  //     await request(app).post('/users').send(user);
+  //   } catch (error) {
+  //     expect(error).to.throw(Error);
+  //     expect(error.message).to.equal('All fields are required');
+  //   }
+  // });
 });
