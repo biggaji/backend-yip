@@ -1,0 +1,17 @@
+name: Automated test CI
+run-name: ${{ github.actor }} triggered an automated test
+on: [push]
+
+jobs:
+  run_unit_tests:
+    runs-on: ubuntu-latest
+    env:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test
