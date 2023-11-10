@@ -1,5 +1,5 @@
 name: Automated test CI
-run-name: ${{ github.actor }} triggered an automated test
+run-name: ${{ github.actor }} triggered an automated tests workflow
 on: [push]
 
 jobs:

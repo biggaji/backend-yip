@@ -55,25 +55,3 @@ describe('Users Endpoint', () => {
     }
   });
 });
-
-// import { app } from '../index.js';
-// import request from 'supertest';
-// import chai, { expect } from 'chai';
-// import chaiAsPromised from 'chai-as-promised';
-
-// // Use chai-as-promised plugin
-// chai.use(chaiAsPromised);
-
-// describe('Users Endpoint', () => {
-//   it('Should throw an Error', async () => {
-//     const user = {
-//       firstname: 'Adeyemi',
-//       lastname: 'Adenuga',
-//       email: 'adenuga@softlife.com',
-//       dob: '2001/03/15',
-//     };
-
-//     // Use chai-as-promised to handle asynchronous assertions
-//     await expect(request(app).post('/users').send(user)).should.be.fulfilled;
-//   });
-// });
