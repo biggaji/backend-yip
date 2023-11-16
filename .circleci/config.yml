@@ -9,12 +9,12 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-      # - node/install:
-      #     install-yarn: true
-      #     node-version: '16.13'
+      - node/install:
+          #     install-yarn: true
+          node-version: '16.13'
       - run:
           command: npm ci
-          name: Install pacakages
+          name: Install packages
       - run:
           command: npm run test
           name: Run tests
